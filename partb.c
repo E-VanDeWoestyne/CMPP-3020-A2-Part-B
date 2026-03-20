@@ -145,7 +145,7 @@ void display_students()
    {
       printf("\nStudent Id is:%d", students[i].id);
       printf("\nStudent First Name is:%s", students[i].first_name);
-      printf("\nStudent last name is:%s", students[i].first_name);
+      printf("\nStudent last name is:%s", students[i].last_name);
       printf("\nStudent Date of birth is:%s", students[i].dob);
       printf("\nStudent gender is:%s", students[i].gender);
       printf("\nStudent GPA is:%f", students[i].gpa);

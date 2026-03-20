@@ -3,9 +3,10 @@
 #include <stdlib.h>
 
 typedef struct {
-    char first_name[15];
-    char last_name[15];
-    char dob[8];
+    int id;
+    char first_name[25];
+    char last_name[25];
+    char dob[11];
     char gender[15];
     float gpa;
     int semester;
@@ -96,13 +97,15 @@ void add_student() {
     students[student_count++] = new_student;
     printf("Student added successfully.\n");
 }
+
+
 // Function for deleting student from array
 int delete_student()
 {
    int i, index = -1, student_id;
-   printf("\nEnter student id to be deleted:");
+   printf("\nEnter student id tobe deleted:");
    scanf("%d", &student_id);
-   for (i = 0; i <= student_count; i++)
+   for (i = 0; i < student_count; i++)
    {
       // Stop searching the elements as soon it found id in array
       if (students[i].id == student_id)
@@ -141,7 +144,7 @@ void display_students()
    {
       printf("Student list is empty. Please add new student and try this option.");
    }
-   for (i = 0; i <= student_count; i++)
+   for (i = 0; i < student_count; i++)
    {
       printf("\nStudent Id is:%d", students[i].id);
       printf("\nStudent First Name is:%s", students[i].first_name);

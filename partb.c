@@ -123,12 +123,9 @@ int delete_student()
    else
    {
       // Shift the next element to current location.
-      for (i = index; i < student_count; i++)
+      for (i = index; i < student_count - 1; i++)
       {
-         if ((i + 1) <= student_count)
-         {
-            students[i] = students[i + 1];
-         }
+         students[i] = students[i + 1];
       }
 
       student_count--;
@@ -140,9 +137,10 @@ int delete_student()
 void display_students()
 {
    int i;
-   if (student_count == -1)
+   if (student_count == 0)
    {
       printf("Student list is empty. Please add new student and try this option.");
+      return;
    }
    for (i = 0; i < student_count; i++)
    {

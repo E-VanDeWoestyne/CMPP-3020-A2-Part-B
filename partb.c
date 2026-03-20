@@ -157,3 +157,28 @@ void display_students()
       printf("\nNumber of courses are:%d", students[i].num_courses);
    }
 }
+
+// Function to check if a year is a leap year
+int isLeap(int year)
+{
+   return (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0));
+}
+
+// Function to validate the date
+int isValidDate(int date, int month, int year)
+{
+   if (year > 9999 || year < 1800)
+      return 0; // Range check
+   if (month < 1 || month > 12)
+      return 0;
+   if (date < 1 || date > 31)
+      return 0;
+
+   // Handle February and months with 30 days
+   if (month == 2)
+      return isLeap(year) ? (date <= 29) : (date <= 28);
+   if (month == 4 || month == 6 || month == 9 || month == 11)
+      return (date <= 30);
+   printf("%d", date);
+   return 1;
+}

@@ -161,14 +161,15 @@ void display_students()
    // Print every student's info currently stored in the array.
    for (i = 0; i < student_count; i++)
    {
-      printf("\nStudent first name is: %s", students[i].first_name);
-      printf("\nStudent last name is: %s", students[i].last_name);
-      printf("\nStudent date of birth is: %s", students[i].dob);
-      printf("\nStudent gender is: %s", students[i].gender);
-      printf("\nStudent GPA is: %f", students[i].gpa);
-      printf("\nStudent current semester is: %d", students[i].semester);
-      printf("\nStudent program is: %s", students[i].program);
-      printf("\nNumber of courses are: %d\n", students[i].num_courses);
+      printf("\nStudent id: %d", i+1);
+      printf("\nFirst name: %s", students[i].first_name);
+      printf("\nLast name: %s", students[i].last_name);
+      printf("\nDate of birth: %s", students[i].dob);
+      printf("\nGender: %s", students[i].gender);
+      printf("\nGPA: %f", students[i].gpa);
+      printf("\nCurrent semester: %d", students[i].semester);
+      printf("\nProgram: %s", students[i].program);
+      printf("\nNumber of courses: %d\n", students[i].num_courses);
    }
 }
 

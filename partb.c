@@ -192,6 +192,5 @@ int isValidDate(int date, int month, int year)
       return isLeap(year) ? (date <= 29) : (date <= 28);
    if (month == 4 || month == 6 || month == 9 || month == 11)
       return (date <= 30);
-   printf("%d", date);
    return 1;
 }

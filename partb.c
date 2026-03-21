@@ -5,6 +5,7 @@
  */
 
 typedef struct {
+  int student_id;
   char first_name[25];
   char last_name[25];
   char dob[11];
@@ -23,6 +24,7 @@ int next_student_id = 1;
 
 // Function declaration
 void add_student();
+int modify_student();
 int delete_student();
 void display_students();
 int isValidDate(int, int, int);
@@ -35,8 +37,9 @@ int main(void) {
   do {
     printf("\n1. Add Student");
     printf("\n2. View Student");
-    printf("\n3. Delete Student");
-    printf("\n4. Exit");
+    printf("\n3. Modify Student");
+    printf("\n4. Delete Student");
+    printf("\n5. Exit");
     printf("\nEnter your choice: ");
     scanf("%d", &choice);
 
@@ -49,18 +52,25 @@ int main(void) {
       display_students();
       break;
     case 3:
+      if (modify_student() == 0) {
+        printf("\nInvalid student ID. Please check it again.\n");
+      } else {
+        printf("\nStudent modified successfully.\n");
+      }
+      break;
+    case 4:
       if (delete_student() == 0) {
         printf("\nInvalid student ID. Please check it again.\n");
       } else {
         printf("\nDeleted student succesfully.\n");
       }
       break;
-    case 4:
+    case 5:
       break;
     default:
       printf("\nInvalid entry. Please enter a valid choice.\n");
     }
-  } while (choice != 4);
+  } while (choice != 5);
   return 0;
 }
 
@@ -160,24 +170,162 @@ void add_student() {
     clear_input_buffer();
   }
 
+  new_student.student_id = next_student_id++;
+
   students[student_count++] = new_student;
   printf("\nStudent added successfully.\n");
 }
 
-// Function for deleting student from array
-int delete_student() {
-  int i, index;
-  printf("\nEnter the index of the student to remove: ");
-  scanf("%d", &index);
-  if (index > student_count) {
-    printf("Invalid student index.");
+// Function for modifying an existing student in the array
+int modify_student() {
+  int id;
+  int index = -1;
+  int i;
+  int day, month, year;
+
+  if (student_count == 0) {
+    printf("\nStudent list is empty. Please add students first.\n");
     return 0;
   }
-  // Shift the next element to current location.
-  for (i = index - 1; i < student_count; i++) {
-    if ((i + 1) <= student_count) {
-      students[i] = students[i + 1];
+
+  printf("\nEnter the student ID to modify: ");
+  if (scanf("%d", &id) != 1) {
+    clear_input_buffer();
+    return 0;
+  }
+  clear_input_buffer();
+
+  // Loop through students to find matching ID.
+  for (i = 0; i < student_count; i++) {
+    if (students[i].student_id == id) {
+      index = i;
+      break;
     }
+  }
+
+  // If no matching ID was found (index stays == -1), return 0.
+  if (index == -1) {
+    return 0;
+  }
+
+  // Rest of function behaves similar to add_student, but instead of writing to
+  // a new struct, it overwrites the one with matching ID.
+  while (1) {
+    printf("\nEnter first name: ");
+    if (scanf(" %24[^\n]", students[index].first_name) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter text.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter last name: ");
+    if (scanf(" %24[^\n]", students[index].last_name) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter text.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter date of birth (DD/MM/YYYY): ");
+    scanf("%10s", students[index].dob);
+
+    if (sscanf(students[index].dob, "%d/%d/%d", &day, &month, &year) == 3 &&
+        isValidDate(day, month, year)) {
+      break;
+    }
+
+    printf("Invalid date. Please enter a valid date in DD/MM/YYYY format.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter gender: ");
+    if (scanf("%14s", students[index].gender) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter text.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter GPA: ");
+    if (scanf("%f", &students[index].gpa) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter a number.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter semester: ");
+    if (scanf("%d", &students[index].semester) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter an integer.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter program: ");
+    if (scanf(" %49[^\n]", students[index].program) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter text.\n");
+    clear_input_buffer();
+  }
+
+  while (1) {
+    printf("Enter number of courses: ");
+    if (scanf("%d", &students[index].num_courses) == 1) {
+      clear_input_buffer();
+      break;
+    }
+    printf("Invalid input. Please enter an integer.\n");
+    clear_input_buffer();
+  }
+
+  return 1;
+}
+
+// Function for deleting student from array
+int delete_student() {
+  int i;
+  int id;
+  int index = -1;
+
+  printf("\nEnter the student ID to remove: ");
+  if (scanf("%d", &id) != 1) {
+    clear_input_buffer();
+    return 0;
+  }
+  clear_input_buffer();
+
+  // Loop through students to find matching ID.
+  for (i = 0; i < student_count; i++) {
+    if (students[i].student_id == id) {
+      index = i;
+      break;
+    }
+  }
+
+  // If no matching ID was found (index stays == -1), return 0.
+  if (index == -1) {
+    printf("Invalid student ID.");
+    return 0;
+  }
+
+  // Shift elements left to fill the removed student's slot.
+  for (i = index; i < student_count - 1; i++) {
+    students[i] = students[i + 1];
   }
 
   student_count--;
@@ -194,7 +342,7 @@ void display_students() {
 
   // Print every student's info currently stored in the array.
   for (i = 0; i < student_count; i++) {
-    printf("\nStudent ID: %d", i + 1);
+    printf("\nStudent ID: %d", students[i].student_id);
     printf("\nFirst name: %s", students[i].first_name);
     printf("\nLast name: %s", students[i].last_name);
     printf("\nDate of birth: %s", students[i].dob);

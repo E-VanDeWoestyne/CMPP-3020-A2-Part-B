@@ -16,6 +16,8 @@ typedef struct {
 
 Student students[100];
 int student_count = 0;
+int next_student_id = 1;
+
 // Function declaration
 void add_student();
 int delete_student();
@@ -32,7 +34,7 @@ int main(void)
       printf("\n2. View Student");
       printf("\n3. Delete Student");
       printf("\n4. Exit");
-      printf("\nEnter your choice:");
+      printf("\nEnter your choice: ");
       scanf("%d", &choice);
 
       // Contol flow statement to execute based on choice
@@ -47,17 +49,17 @@ int main(void)
       case 3:
          if (delete_student() == 0)
          {
-            printf("Invalid student ID. Please check it again.");
+            printf("\nInvalid student ID. Please check it again.\n");
          }
          else
          {
-            printf("\nDeleted student succesfully.");
+            printf("\nDeleted student succesfully.\n");
          }
          break;
       case 4:
          break;
       default:
-         printf("Invalid entry. Please enter a valid choice.");
+         printf("\nInvalid entry. Please enter a valid choice.\n");
       }
    } while (choice != 4);
     return 0;
@@ -104,6 +106,7 @@ void add_student() {
     printf("Enter number of courses: ");
     scanf("%d", &new_student.num_courses);
 
+    new_student.id = next_student_id++;
     students[student_count++] = new_student;
     printf("\nStudent added successfully.\n");
 }
@@ -150,21 +153,21 @@ int delete_student()
 void display_students()
 {
    int i;
-   if (student_count == -1)
+   if (student_count == 0)
    {
       printf("\nStudent list is empty. Please add new student and try this option.");
    }
    for (i = 0; i < student_count; i++)
    {
-      printf("\nStudent Id is: %d", students[i].id);
-      printf("\nStudent First Name is: %s", students[i].first_name);
+      printf("\nStudent ID is: %d", students[i].id);
+      printf("\nStudent first name is: %s", students[i].first_name);
       printf("\nStudent last name is: %s", students[i].last_name);
-      printf("\nStudent Date of birth is: %s", students[i].dob);
+      printf("\nStudent date of birth is: %s", students[i].dob);
       printf("\nStudent gender is: %s", students[i].gender);
       printf("\nStudent GPA is: %f", students[i].gpa);
       printf("\nStudent current semester is: %d", students[i].semester);
       printf("\nStudent program is: %s", students[i].program);
-      printf("\nNumber of courses are: %d", students[i].num_courses);
+      printf("\nNumber of courses are: %d\n", students[i].num_courses);
    }
 }
 

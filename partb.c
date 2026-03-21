@@ -10,7 +10,7 @@ typedef struct {
     char gender[15];
     float gpa;
     int semester;
-    char program[20];
+    char program[50];
     int num_courses;
 } Student;
 
@@ -23,7 +23,7 @@ void display_students();
 int isValidDate(int, int, int);
 int isLeap(int);
 
-void main()
+int main(void)
 {
    int choice;
    do
@@ -60,6 +60,7 @@ void main()
          printf("Invalid entry");
       }
    } while (choice != 4);
+    return 0;
 }
 
 void add_student() {
@@ -69,15 +70,24 @@ void add_student() {
     }
     
     Student new_student;
+    int day, month, year;
     
     printf("Enter first name: ");
-    scanf("%s", new_student.first_name);
+    scanf(" %24[^\n]", new_student.first_name);
     
     printf("Enter last name: ");
-    scanf("%s", new_student.last_name);
+    scanf(" %24[^\n]", new_student.last_name);
     
-    printf("Enter date of birth (DD/MM/YY): ");
-    scanf("%s", new_student.dob);
+    while (1) {
+        printf("Enter date of birth (DD/MM/YYYY): ");
+        scanf("%10s", new_student.dob);
+
+        if (sscanf(new_student.dob, "%d/%d/%d", &day, &month, &year) == 3 && isValidDate(day, month, year)) {
+            break;
+        }
+
+    printf("Invalid date. Please enter a valid date in DD/MM/YYYY format.");
+    }
     
     printf("Enter gender: ");
     scanf("%s", new_student.gender);
@@ -89,7 +99,7 @@ void add_student() {
     scanf("%d", &new_student.semester);
 
     printf("Enter program: ");
-    scanf("%s", new_student.program);
+    scanf(" %49[^\n]", new_student.program);
 
     printf("Enter number of courses: ");
     scanf("%d", &new_student.num_courses);

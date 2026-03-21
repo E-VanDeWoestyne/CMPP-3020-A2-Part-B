@@ -173,6 +173,7 @@ void display_students()
    }
 }
 
+
 // Function to check if a year is a leap year
 void isLeap(int *year)
 {
@@ -182,12 +183,15 @@ void isLeap(int *year)
 // Function to validate the date
 int isValidDate(int date, int month, int year)
 {
-   if (year > 9999 || year < 1800)
+   if (year > 9999 || year < 1800){
       return 0; // Range check
-   if (month < 1 || month > 12)
+   }
+   if (month < 1 || month > 12){
       return 0;
-   if (date < 1 || date > 31)
+   }
+   if (date < 1 || date > 31){
       return 0;
+   }
 
    // Handle February and months with 30 days
    if (month == 2)
@@ -195,7 +199,8 @@ int isValidDate(int date, int month, int year)
       isLeap(&year);
       return year ? (date <= 29) : (date <= 28);
    }
-   if (month == 4 || month == 6 || month == 9 || month == 11)
+   if (month == 4 || month == 6 || month == 9 || month == 11){
       return (date <= 30);
+   }
    return 1;
 }

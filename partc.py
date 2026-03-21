@@ -13,11 +13,7 @@ class Student:
         self.num_courses = num_courses
 
 
-Students = [
-    Student("Alice", "Johnson", "2001-05-14", "Female", 3.8, 5, "Computer Science", 6),
-    Student("Brian", "Smith", "2000-11-22", "Male", 3.2, 4, "Information Technology", 5),
-    Student("Clara", "Ndiaye", "2002-03-09", "Female", 3.9, 6, "Software Engineering", 7)
-]
+Students = []
 
 
 # -------------------------
